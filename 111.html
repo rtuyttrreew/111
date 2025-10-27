@@ -3,138 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第四章 老年人健康评估</title>
+    <title>HPLP-II健康促进生活方式评估工具</title>
     <style>
-        :root {
-            --primary:#2469a3;
-            --accent:#0f4b82;
-            --text:#333;
-        }
-        * {
-            box-sizing:border-box;
-        }
         body {
-            margin:0;
-            font-family:"Microsoft YaHei", "PingFang SC", "Heiti SC", Arial, sans-serif;
-            background:#f0f4f8;
-            color:var(--text);
-            display:flex;
-            justify-content:center;
-            padding:40px 20px;
+            font-family: "Microsoft YaHei", sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
         }
-        .slide {
-            background:#fff;
-            width:960px;
-            padding:40px 50px;
-            border-radius:12px;
-            box-shadow:0 12px 30px rgba(36,105,163,0.18);
-            position:relative;
-            overflow:hidden;
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
         }
-        .slide::before {
-            content:"";
-            position:absolute;
-            top:36px;
-            left:28px;
-            width:24px;
-            height:24px;
-            border:6px solid var(--primary);
-            border-radius:4px;
+        .question {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
         }
-        header {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            padding-left:48px;
+        .options {
+            margin-left: 20px;
         }
-        .title {
-            font-size:32px;
-            font-weight:600;
-            letter-spacing:1px;
+        .option {
+            margin: 8px 0;
         }
-        .logo {
-            display:flex;
-            align-items:center;
-            gap:10px;
-            color:var(--primary);
-            font-weight:600;
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
         }
-        .logo-shape {
-            width:54px;
-            height:54px;
-            border-radius:50%;
-            background:linear-gradient(135deg, #f4d7dd, #ffffff 60%);
-            border:2px solid #d56c79;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:12px;
-            color:#d56c79;
+        button:hover {
+            background-color: #45a049;
         }
-        .subtitle {
-            margin:30px 0 24px 48px;
-            font-size:22px;
-            font-weight:600;
-            color:var(--accent);
+        #result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f0f8ff;
         }
-        ol {
-            margin:0;
-            padding-left:72px;
-            font-size:18px;
-            line-height:1.7;
+        .score-item {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
         }
-        ol li:not(:last-child) {
-            margin-bottom:12px;
+        .progress-bar {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 5px 0;
+            overflow: hidden;
         }
-        .note {
-            font-size:14px;
-            color:#7a869a;
-            margin-top:32px;
-            text-align:right;
-        }
-        @media (max-width:1024px) {
-            body {
-                padding:20px;
-            }
-            .slide {
-                width:100%;
-                padding:30px 24px;
-            }
-            header {
-                flex-direction:column;
-                align-items:flex-start;
-                gap:12px;
-                padding-left:36px;
-            }
-            .subtitle {
-                margin-left:36px;
-            }
-            ol {
-                padding-left:60px;
-            }
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
         }
     </style>
 </head>
 <body>
-    <div class="slide">
-        <header>
-            <div class="title">第四章 老年人健康评估</div>
-            <div class="logo">
-                <div class="logo-shape">珠海<br>科技</div>
-                <span>珠海科技学院</span>
-            </div>
-        </header>
-        <div class="subtitle">课后作业：以China-PAR为例，借助AI工具+计算机系同学协作</div>
-        <ol>
-            <li>依据“中国糖尿病风险评分表”，创建在线评估工具。（一级预防）</li>
-            <li>创建肾小球滤过率监测在线工具，用于慢性肾脏病早期筛查。（二级预防）</li>
-            <li>依据HPLP-II健康促进生活方式量表，创建生活方式在线评估工具。</li>
-            <li>依据民政部（2013年）《老年人能力评估》标准，创建老年人能力在线评估工具。</li>
-            <li>依据Barthel指数ADL（activities of daily living）评定方法，创建老年人日常生活能力（ADL）在线评估工具。</li>
-            <li>依据WHO生存质量-老年人量表（WHOQOL-OLD），创建老年人生活质量在线评估工具。</li>
-            <li>依据中文版SF-36表，创建人群健康检查的生活质量在线评估工具。</li>
-        </ol>
+    <h1 align="center">HPLP-II健康促进生活方式评估</h1>
+    <p align="center">请根据过去4周的实际情况，选择最符合您的选项（1=从不，2=很少，3=有时，4=经常，5=总是）</p>
 
+    <form id="hplpForm">
+        <!-- 营养维度 -->
+        <div class="section">
+            <h2>一、营养维度</h2>
+            <div class="question">
+                <p>1. 我摄入多种蔬菜水果</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q1" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q1" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q1" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q1" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>2. 我限制高脂肪食物的摄入</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q2" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q2" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q2" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q2" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>3. 我注意控制饮食量</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q3" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q3" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q3" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q3" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>4. 我每天饮用足够的水</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q4" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q4" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q4" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q4" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 运动维度 -->
+        <div class="section">
+            <h2>二、运动维度</h2>
+            <div class="question">
+                <p>5. 我进行规律的有氧运动（如快走、游泳）</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q5" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q5" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q5" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q5" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>6. 我进行肌肉力量训练</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q6" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q6" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q6" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q6" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>7. 我保持日常活动量（如步行上下楼）</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q7" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q7" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q7" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q7" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 健康责任维度 -->
+        <div class="section">
+            <h2>三、健康责任维度</h2>
+            <div class="question">
+                <p>8. 我定期进行健康检查</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q8" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q8" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q8" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q8" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>9. 我主动学习健康知识</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q9" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q9" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q9" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q9" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>10. 我遵循医嘱进行健康管理</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q10" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q10" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q10" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q10" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人际关系维度 -->
+        <div class="section">
+            <h2>四、人际关系维度</h2>
+            <div class="question">
+                <p>11. 我与家人保持良好沟通</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q11" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q11" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q11" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q11" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q11" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>12. 我有可信赖的朋友支持</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q12" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q12" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q12" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q12" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q12" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>13. 必要时我会寻求他人帮助</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q13" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q13" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q13" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q13" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q13" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 应对压力维度 -->
+        <div class="section">
+            <h2>五、应对压力维度</h2>
+            <div class="question">
+                <p>14. 我有健康的压力释放方式</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q14" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q14" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q14" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q14" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q14" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>15. 我能平衡工作与休闲</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q15" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q15" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q15" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q15" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q15" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>16. 我避免用不健康方式应对压力（如吸烟、酗酒）</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q16" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q16" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q16" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q16" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q16" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 自我实现维度 -->
+        <div class="section">
+            <h2>六、自我实现维度</h2>
+            <div class="question">
+                <p>17. 我设定并努力实现生活目标</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q17" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q17" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q17" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q17" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q17" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>18. 我保持积极的人生态度</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q18" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q18" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q18" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q18" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q18" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>19. 我有良好的睡眠习惯</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q19" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q19" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q19" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q19" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q19" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>20. 我会表达自己的感受而非压抑</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q20" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q20" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q20" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q20" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q20" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>21. 我会为自己的成就感到自豪</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q21" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q21" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q21" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q21" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q21" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>22. 我保持规律的生活作息</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q22" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q22" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q22" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q22" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q22" value="5"> 5=总是</div>
+                </div>
+            </div>
+            <div class="question">
+                <p>23. 我对生活有掌控感</p>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q23" value="1" required> 1=从不</div>
+                    <div class="option"><input type="radio" name="q23" value="2"> 2=很少</div>
+                    <div class="option"><input type="radio" name="q23" value="3"> 3=有时</div>
+                    <div class="option"><input type="radio" name="q23" value="4"> 4=经常</div>
+                    <div class="option"><input type="radio" name="q23" value="5"> 5=总是</div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="calculateResult()">提交评估</button>
+    </form>
+
+    <div id="result">
+        <h2 align="center">评估结果</h2>
+        <p><strong>总得分：</strong> <span id="totalScore"></span>/115</p>
+        <div class="progress-bar">
+            <div id="totalProgress" class="progress"></div>
+        </div>
+        
+        <div id="dimensionScores"></div>
+        
+        <div style="margin-top: 20px; padding: 15px; background-color: #e8f5e9; border-radius: 4px;">
+            <h3>结果解释</h3>
+            <p id="interpretation"></p>
+            <h3>改善建议</h3>
+            <p id="suggestion"></p>
+        </div>
     </div>
+
+    <script>
+        function calculateResult() {
+            // 检查是否所有问题都已回答
+            const form = document.getElementById('hplpForm');
+            let unanswered = 0;
+            for (let i = 1; i <= 23; i++) {
+                const radios = form.querySelectorAll(`input[name="q${i}"]:checked`);
+                if (radios.length === 0) {
+                    unanswered++;
+                }
+            }
+            if (unanswered > 0) {
+                alert(`还有${unanswered}个问题未回答，请完成所有问题后再提交`);
+                return;
+            }
+
+            // 各维度包含的问题
+            const dimensions = {
+                "营养维度": [1, 2, 3, 4],
+                "运动维度": [5, 6, 7],
+                "健康责任维度": [8, 9, 10],
+                "人际关系维度": [11, 12, 13],
+                "应对压力维度": [14, 15, 16],
+                "自我实现维度": [17, 18, 19, 20, 21, 22, 23]
+            };
+
+            // 计算各维度得分和总得分
+            let totalScore = 0;
+            const dimensionScores = {};
+            
+            for (const [name, questions] of Object.entries(dimensions)) {
+                let score = 0;
+                questions.forEach(q => {
+                    const value = parseInt(form.querySelector(`input[name="q${q}"]:checked`).value);
+                    score += value;
+                    totalScore += value;
+                });
+                const maxScore = questions.length * 5;
+                dimensionScores[name] = {
+                    score: score,
+                    max: maxScore,
+                    percentage: Math.round(score / maxScore * 100)
+                };
+            }
+
+            // 显示结果
+            document.getElementById('totalScore').textContent = totalScore;
+            document.getElementById('totalProgress').style.width = `${totalScore / 115 * 100}%`;
+
+            // 显示各维度得分
+            const dimElement = document.getElementById('dimensionScores');
+            dimElement.innerHTML = '';
+            for (const [name, data] of Object.entries(dimensionScores)) {
+                dimElement.innerHTML += `
+                    <div class="score-item">
+                        <strong>${name}：</strong>${data.score}/${data.max} (${data.percentage}%)
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${data.percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 结果解释
+            let interpretation, suggestion;
+            if (totalScore >= 92) {
+                interpretation = "您的健康促进生活方式水平非常高，各方面习惯均衡且良好，继续保持将对身心健康有极大益处。";
+                suggestion = "保持现有健康习惯，可尝试在相对薄弱的维度进行微调，追求更全面的健康状态。";
+            } else if (totalScore >= 77) {
+                interpretation = "您的健康促进生活方式水平良好，多数维度表现优秀，但存在个别需要改进的方面。";
+                suggestion = "重点关注得分较低的维度，制定针对性改善计划，如增加运动频率或改善饮食习惯。";
+            } else if (totalScore >= 61) {
+                interpretation = "您的健康促进生活方式水平中等，有一定健康意识和习惯，但多个维度有提升空间。";
+                suggestion = "系统分析各维度表现，优先改善得分最低的1-2个维度，逐步建立更健康的生活模式。";
+            } else if (totalScore >= 46) {
+                interpretation = "您的健康促进生活方式水平偏低，健康意识和相关习惯都需要加强。";
+                suggestion = "从基础健康习惯开始改善，如规律作息、增加蔬果摄入、保持适度运动等，逐步提升。";
+            } else {
+                interpretation = "您的健康促进生活方式水平较低，存在较多不利于健康的生活习惯，需要积极调整。";
+                suggestion = "建议寻求专业健康指导，制定全面的生活方式改善计划，从关键维度入手逐步改变。";
+            }
+
+            document.getElementById('interpretation').textContent = interpretation;
+            document.getElementById('suggestion').textContent = suggestion;
+
+            // 显示结果区域并滚动到顶部
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
