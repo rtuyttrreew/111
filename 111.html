@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四章 老年人健康评估</title>
+    <style>
+        :root {
+            --primary:#2469a3;
+            --accent:#0f4b82;
+            --text:#333;
+        }
+        * {
+            box-sizing:border-box;
+        }
+        body {
+            margin:0;
+            font-family:"Microsoft YaHei", "PingFang SC", "Heiti SC", Arial, sans-serif;
+            background:#f0f4f8;
+            color:var(--text);
+            display:flex;
+            justify-content:center;
+            padding:40px 20px;
+        }
+        .slide {
+            background:#fff;
+            width:960px;
+            padding:40px 50px;
+            border-radius:12px;
+            box-shadow:0 12px 30px rgba(36,105,163,0.18);
+            position:relative;
+            overflow:hidden;
+        }
+        .slide::before {
+            content:"";
+            position:absolute;
+            top:36px;
+            left:28px;
+            width:24px;
+            height:24px;
+            border:6px solid var(--primary);
+            border-radius:4px;
+        }
+        header {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding-left:48px;
+        }
+        .title {
+            font-size:32px;
+            font-weight:600;
+            letter-spacing:1px;
+        }
+        .logo {
+            display:flex;
+            align-items:center;
+            gap:10px;
+            color:var(--primary);
+            font-weight:600;
+        }
+        .logo-shape {
+            width:54px;
+            height:54px;
+            border-radius:50%;
+            background:linear-gradient(135deg, #f4d7dd, #ffffff 60%);
+            border:2px solid #d56c79;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:12px;
+            color:#d56c79;
+        }
+        .subtitle {
+            margin:30px 0 24px 48px;
+            font-size:22px;
+            font-weight:600;
+            color:var(--accent);
+        }
+        ol {
+            margin:0;
+            padding-left:72px;
+            font-size:18px;
+            line-height:1.7;
+        }
+        ol li:not(:last-child) {
+            margin-bottom:12px;
+        }
+        .note {
+            font-size:14px;
+            color:#7a869a;
+            margin-top:32px;
+            text-align:right;
+        }
+        @media (max-width:1024px) {
+            body {
+                padding:20px;
+            }
+            .slide {
+                width:100%;
+                padding:30px 24px;
+            }
+            header {
+                flex-direction:column;
+                align-items:flex-start;
+                gap:12px;
+                padding-left:36px;
+            }
+            .subtitle {
+                margin-left:36px;
+            }
+            ol {
+                padding-left:60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <header>
+            <div class="title">第四章 老年人健康评估</div>
+            <div class="logo">
+                <div class="logo-shape">珠海<br>科技</div>
+                <span>珠海科技学院</span>
+            </div>
+        </header>
+        <div class="subtitle">课后作业：以China-PAR为例，借助AI工具+计算机系同学协作</div>
+        <ol>
+            <li>依据“中国糖尿病风险评分表”，创建在线评估工具。（一级预防）</li>
+            <li>创建肾小球滤过率监测在线工具，用于慢性肾脏病早期筛查。（二级预防）</li>
+            <li>依据HPLP-II健康促进生活方式量表，创建生活方式在线评估工具。</li>
+            <li>依据民政部（2013年）《老年人能力评估》标准，创建老年人能力在线评估工具。</li>
+            <li>依据Barthel指数ADL（activities of daily living）评定方法，创建老年人日常生活能力（ADL）在线评估工具。</li>
+            <li>依据WHO生存质量-老年人量表（WHOQOL-OLD），创建老年人生活质量在线评估工具。</li>
+            <li>依据中文版SF-36表，创建人群健康检查的生活质量在线评估工具。</li>
+        </ol>
+
+    </div>
+</body>
+</html>
